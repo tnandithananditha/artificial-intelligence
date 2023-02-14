@@ -1,0 +1,17 @@
+import random
+
+def f(x):
+    return x**2 - 2*x + 1
+
+def simulated_annealing(f, init_x, T, delta, num_iterations):
+    x = init_x
+    for i in range(num_iterations):
+        new_x = x + random.uniform(-delta, delta)
+        delta_E = f(new_x) - f(x)
+        if delta_E > 0 or random.uniform(0, 1) < T:
+            x = new_x
+        T *= 0.99
+    return x
+
+result = simulated_annealing(f, 0, 100, 1, 10000)
+print(result)
